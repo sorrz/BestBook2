@@ -1,0 +1,72 @@
+﻿@page "/proc"
+@using Microsoft.Extensions.Logging
+@inject ILogger<Call> Logger
+@using Microsoft.AspNetCore.Components.Forms
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Text;
+@using System.Threading.Tasks;
+@using System.Windows;
+@using System.Windows.Input;
+@using BestBook2.Data;
+@inject ICall call;
+@inject NavigationManager NavManager;
+
+<PageTitle>Stored Procedures</PageTitle>
+
+<h1>Move Book</h1>
+
+<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+     
+    <label class="control-label col-md-12">ISBN To Move</label>
+    <InputText id="isbn" @bind-Value="exampleModel.isbn" />
+    <label class="control-label col-md-12">From Stor</label>
+    <InputText id="fromStore" @bind-Value="exampleModel.fromStore" />
+    <label class="control-label col-md-12">To Store</label>
+    <InputText id="toStore" @bind-Value="exampleModel.toStore" />
+    <label class="control-label col-md-12">No to Move</label>
+    <InputText id="stockChange" @bind-Value="exampleModel.stockChange" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+
+
+@code {
+    
+    private ExampleModel exampleModel = new();
+    
+
+    private void HandleValidSubmit()
+    {
+        Logger.LogInformation("HandleValidSubmit called");
+
+        // Process the valid form
+        Execute(exampleModel.isbn, exampleModel.fromStore, exampleModel.toStore, exampleModel.stockChange);
+
+        NavManager.NavigateTo("/ok");
+    }
+
+    
+
+        private void Execute(string isbn, string fromStore, string toStore, string stockChange)
+        {
+
+            //Call spExecute = new Call();
+
+            var _isbn = Convert.ToInt64(isbn);
+            var _fromStore = Convert.ToInt64(fromStore);
+            var _toStore = Convert.ToInt64(toStore);
+            var _stockChange = Convert.ToInt32(stockChange);
+            
+            call.Test(_isbn, _fromStore, _toStore, _stockChange);
+            
+        }
+
+
+
+}
