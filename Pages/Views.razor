@@ -1,0 +1,61 @@
+﻿@page "/views"
+@using Microsoft.Extensions.Logging
+@inject ILogger<Call> Logger
+@using Microsoft.AspNetCore.Components.Forms
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Text;
+@using System.Threading.Tasks;
+@using System.Windows;
+@using System.Windows.Input;
+@using BestBook2.Data;
+@inject ICall call;
+@inject NavigationManager NavManager;
+@using BestBook2.Options;
+
+
+
+
+<PageTitle>Views</PageTitle>
+
+<h1>Execute View Command</h1>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Current Stock</th>
+                <th>Price Per Item</th>
+                <th>Total Worth</th>
+                <th>Author Name</th>
+                <th>Birth Date</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            @foreach (var item in ViewItemService.GetViewItems())
+            {
+                <tr>
+                    <td>@item.ISBN</td>
+                    <td>@item.CurrentStock</td>
+                    <td>@item.PricePerItem</td>
+                    <td>@item.TotalWorth</td>
+                    <td>@item.AuthorName</td>
+                    <td>@item.Birthdate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+@code {
+
+   
+
+
+
+}
